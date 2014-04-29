@@ -159,7 +159,7 @@
 - (NSString *) stringForOSType: (DescType) descType;
 {
     CFStringRef descRef = UTCreateStringForOSType(descType);
-    NSString * descString = [NSString stringWithString:(NSString *)descRef];
+    NSString * descString = [NSString stringWithString:(__bridge NSString *)descRef];
     CFRelease(descRef);
     return descString;
 }
@@ -991,7 +991,7 @@ cleanup_reply:
 	/* Convert Alias to NSString */
 	CFURLRef resolvedURL = CFURLCreateFromFSRef(NULL, &fsRef);
 	if (resolvedURL) {
-		urlString = [(NSURL *)resolvedURL absoluteString];
+		urlString = [(__bridge NSURL *)resolvedURL absoluteString];
 		CFRelease(resolvedURL);
 	}
 	
@@ -1237,7 +1237,7 @@ cleanup_reply:
 	/* Convert Alias to NSString */
 	CFURLRef resolvedURL = CFURLCreateFromFSRef(NULL, &fsRef);
 	
-	NSArray *valueAndDump = [NSArray arrayWithObjects:(NSURL *)resolvedURL,
+	NSArray *valueAndDump = [NSArray arrayWithObjects:(__bridge NSURL *)resolvedURL,
 		[ETAppleEventObject debugHexDump:(void *)&fsRef ofLength:sizeof(fsRef)], nil];
 	
 	if (resolvedURL) {
